@@ -2,6 +2,8 @@ clc
 clear all
 close all
 
+tic
+
 % Defining the whole plot from the given coordinates
 
 x1 = [0 250 250 0];
@@ -300,3 +302,5 @@ if status
         plot(a,b,'*','color','blue')
     end
 end
+
+toc
