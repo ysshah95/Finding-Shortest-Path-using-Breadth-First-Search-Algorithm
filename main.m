@@ -114,7 +114,7 @@ if status
                     Nodes(:,:,i) = NewNodeL;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
-                    plot(c,d,'+')
+                    plot(c,d,'.','color','yellow')
                     if NewNodeL(1) == GoalNode(1) && NewNodeL(2) == GoalNode(2)
                         break
                     end
@@ -136,7 +136,7 @@ if status
                     Nodes(:,:,i) = NewNodeR;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
-                    plot(c,d,'+')
+                    plot(c,d,'.','color','yellow')
                     if NewNodeR(1) == GoalNode(1) && NewNodeR(2) == GoalNode(2)
                         break
                     end
@@ -158,7 +158,7 @@ if status
                     Nodes(:,:,i) = NewNodeU;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
-                    plot(c,d,'+')
+                    plot(c,d,'.','color','yellow')
                     if NewNodeU(1) == GoalNode(1) && NewNodeU(2) == GoalNode(2)
                         break
                     end
@@ -180,7 +180,7 @@ if status
                     Nodes(:,:,i) = NewNodeD;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
-                    plot(c,d,'+') 
+                    plot(c,d,'.','color','yellow') 
                     if NewNodeD(1) == GoalNode(1) && NewNodeD(2) == GoalNode(2)
                         break
                     end
@@ -202,7 +202,7 @@ if status
                     Nodes(:,:,i) = NewNodeDL;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
-                    plot(c,d,'+') 
+                    plot(c,d,'.','color','yellow') 
                     if NewNodeDL(1) == GoalNode(1) && NewNodeDL(2) == GoalNode(2)
                         break
                     end
@@ -224,7 +224,7 @@ if status
                     Nodes(:,:,i) = NewNodeDR;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
-                    plot(c,d,'+')
+                    plot(c,d,'.','color','yellow')
                     if NewNodeDR(1) == GoalNode(1) && NewNodeDR(2) == GoalNode(2)
                         break
                     end
@@ -246,7 +246,7 @@ if status
                     Nodes(:,:,i) = NewNodeUL;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
-                    plot(c,d,'+')
+                    plot(c,d,'.','color','yellow')
                     if NewNodeUL(1) == GoalNode(1) && NewNodeUL(2) == GoalNode(2)
                         break
                     end
@@ -268,7 +268,7 @@ if status
                     Nodes(:,:,i) = NewNodeUR;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
-                    plot(c,d,'+')
+                    plot(c,d,'.','color','yellow')
                     if NewNodeUR(1) == GoalNode(1) && NewNodeUR(2) == GoalNode(2)
                         break
                     end
@@ -277,6 +277,16 @@ if status
         end
         j = j+1
     end
+    
+    txt1 = '\leftarrow Start Node';
+    txt2 = '\leftarrow Goal Node';
+   
+    
+    plot(StartNode(1),StartNode(2),'s','color','green','markers',20)
+    plot(GoalNode(1),GoalNode(2),'s','color','red','markers',20)
+   
+    text(StartNode(1),StartNode(2),txt1)
+    text(GoalNode(1),GoalNode(2),txt2)
 
     k = i-1;
     count = 0;
@@ -287,6 +297,6 @@ if status
         info = NodesInfo((2*k));
         k = info;
         count = count+1;
-        plot(a,b,'*')
+        plot(a,b,'*','color','blue')
     end
 end
