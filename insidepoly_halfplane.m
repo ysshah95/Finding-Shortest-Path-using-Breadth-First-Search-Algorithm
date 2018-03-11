@@ -2,7 +2,27 @@ function [in] = insidepoly_halfplane(c,d)
 
 % Square 
 
-if c <= 105 && c >= 55 && d >= 67.5 && d <= 112.5
+xs1 = 55;
+ys1 = 112.5;
+
+xs2 = 55;
+ys2 = 67.5;
+
+xs3 = 105;
+ys3 = 67.5;
+
+xs4 = 105;
+ys4 = 112.5;
+
+xs = c;
+
+yss1 = ys1 + ((ys2-ys1)*(xs-xs1))/(xs2-xs1);
+yss2 = ys2 + ((ys3-ys2)*(xs-xs2))/(xs3-xs2);
+yss3 = ys3 + ((ys4-ys3)*(xs-xs3))/(xs4-xs3);
+yss4 = ys1 + ((ys4-ys1)*(xs-xs1))/(xs4-xs1);
+
+
+if d<=yss1 && d>=yss2 && d>=yss3 && d<=yss4
     ins = true;
 else
     ins = false;
