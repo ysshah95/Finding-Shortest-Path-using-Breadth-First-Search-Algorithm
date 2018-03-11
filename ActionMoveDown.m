@@ -9,4 +9,5 @@ else
     newY = y-1;
     StatusD = true;
     NewNodeD = [newX, newY];
+        
 end
