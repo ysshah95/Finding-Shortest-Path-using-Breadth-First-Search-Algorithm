@@ -2,13 +2,12 @@ clc
 clear all
 close all
 
-tic
-
 % Defining the whole plot from the given coordinates
 
 x1 = [0 250 250 0];
 y1 = [0 0 150 150];
 rec = polyshape(x1,y1);
+drawnow 
 plot(rec)
 fill(x1,y1,'w')
 hold on
@@ -16,6 +15,7 @@ hold on
 x2 = [55 55 105 105];
 y2 = [112.5 67.5 67.5 112.5];
 square = polyshape(x2,y2);
+drawnow
 plot(square)
 fill(x2,y2,'k')
 hold on 
@@ -23,6 +23,7 @@ hold on
 x3 = [120 158 165 188 168 145];
 y3 = [55 51 89 51 14 14];
 poly = polyshape(x3, y3);
+drawnow
 plot(poly)
 fill(x3,y3,'k')
 hold on 
@@ -34,6 +35,7 @@ t = 0:0.01:2*pi;
 radius = 15;
 x4 = radius*cos(t)+ xc;
 y4 = radius*sin(t) + yc;
+drawnow
 plot(x4,y4)
 xlim([0 250])
 ylim([0 150])
@@ -59,27 +61,19 @@ while ~status
     StartNode = [x_s,y_s];
     GoalNode = [x_g,y_g];
 
-    [ins_node_start,ons_node_start] = inpolygon(StartNode(1),StartNode(2),x2,y2);
-    [inp_node_start,onp_node_start] = inpolygon(StartNode(1),StartNode(2),x3,y3);
-    [inc_node_start,onc_node_start] = inpolygon(StartNode(1),StartNode(2),x4,y4);
+    in_start = insidepoly_halfplane(x_s,y_s);
+    in_goal = insidepoly_halfplane(x_g,y_g);
 
-    [ins_node_goal,ons_node_goal] = inpolygon(GoalNode(1),GoalNode(2),x2,y2);
-    [inp_node_goal,onp_node_goal] = inpolygon(GoalNode(1),GoalNode(2),x3,y3);
-    [inc_node_goal,onc_node_goal] = inpolygon(GoalNode(1),GoalNode(2),x4,y4);
-        
-    [in_start, on_start] = inpolygon(StartNode(1),StartNode(2),x1,y1);
-    [in_goal, on_goal] = inpolygon(GoalNode(1),GoalNode(2),x1,y1);
-
-    if ins_node_start || ons_node_start || inp_node_start || onp_node_start || inc_node_start || onc_node_start
+    if in_start
         status = false;
         disp('The start point provided is inside the obstacle.');
-    elseif ins_node_goal || ons_node_goal || inp_node_goal || onp_node_goal || inc_node_goal || onc_node_goal
+    elseif in_goal
         status = false;
         disp('The goal point provided is inside the obstacle.');
-    elseif ~in_start
+    elseif (x_s<0 || x_s>250) || (y_s<0 || y_s>150)
         status = false;
         disp('The start point provided is not in the given workspace.')
-    elseif ~in_goal
+    elseif  (x_g<0 || x_g>250) || (y_g<0 || y_g>=250)
         status = false;
         disp('The goal point point provided is not in the given workspace.')
     else
@@ -107,15 +101,12 @@ if status
             if (any(all(bsxfun(@eq,Nodes,NewNodeL)))) == false
                 c = NewNodeL(1);
                 d = NewNodeL(2);
-                [ins_node,ons] = inpolygon(c,d,x2,y2);
-                [inp,onp] = inpolygon(c,d,x3,y3);
-                [inc,onc] = inpolygon(c,d,x4,y4);
-                in = ins_node | inp | inc;
-                on = ons | onp | onc;
-                if in == false && on == false 
+                in = insidepoly_halfplane(c,d);
+                if in == false 
                     Nodes(:,:,i) = NewNodeL;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
+%                     drawnow 
                     plot(c,d,'.','color','yellow')
                     if NewNodeL(1) == GoalNode(1) && NewNodeL(2) == GoalNode(2)
                         break
@@ -129,15 +120,12 @@ if status
             if (any(all(bsxfun(@eq,Nodes,NewNodeR)))) == false
                 c = NewNodeR(1);
                 d = NewNodeR(2);
-                [ins_node,ons] = inpolygon(c,d,x2,y2);
-                [inp,onp] = inpolygon(c,d,x3,y3);
-                [inc,onc] = inpolygon(c,d,x4,y4);
-                in = ins_node | inp | inc;
-                on = ons | onp | onc;
-                if in == false && on == false 
+                in = insidepoly_halfplane(c,d);
+                if in == false
                     Nodes(:,:,i) = NewNodeR;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
+%                     drawnow
                     plot(c,d,'.','color','yellow')
                     if NewNodeR(1) == GoalNode(1) && NewNodeR(2) == GoalNode(2)
                         break
@@ -151,15 +139,12 @@ if status
             if (any(all(bsxfun(@eq,Nodes,NewNodeU)))) == false
                 c = NewNodeU(1);
                 d = NewNodeU(2);
-                [ins_node,ons] = inpolygon(c,d,x2,y2);
-                [inp,onp] = inpolygon(c,d,x3,y3);
-                [inc,onc] = inpolygon(c,d,x4,y4);
-                in = ins_node | inp | inc;
-                on = ons | onp | onc;
-                if in == false && on == false 
+                in = insidepoly_halfplane(c,d);
+                if in == false
                     Nodes(:,:,i) = NewNodeU;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
+%                     drawnow
                     plot(c,d,'.','color','yellow')
                     if NewNodeU(1) == GoalNode(1) && NewNodeU(2) == GoalNode(2)
                         break
@@ -173,15 +158,12 @@ if status
             if (any(all(bsxfun(@eq,Nodes,NewNodeD)))) == false
                 c = NewNodeD(1);
                 d = NewNodeD(2);
-                [ins_node,ons] = inpolygon(c,d,x2,y2);
-                [inp,onp] = inpolygon(c,d,x3,y3);
-                [inc,onc] = inpolygon(c,d,x4,y4);
-                in = ins_node | inp | inc;
-                on = ons | onp | onc;
-                if in == false && on == false 
+                in = insidepoly_halfplane(c,d);
+                if in == false
                     Nodes(:,:,i) = NewNodeD;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
+%                     drawnow
                     plot(c,d,'.','color','yellow') 
                     if NewNodeD(1) == GoalNode(1) && NewNodeD(2) == GoalNode(2)
                         break
@@ -195,15 +177,12 @@ if status
             if (any(all(bsxfun(@eq,Nodes,NewNodeDL)))) == false
                 c = NewNodeDL(1);
                 d = NewNodeDL(2);
-                [ins_node,ons] = inpolygon(c,d,x2,y2);
-                [inp,onp] = inpolygon(c,d,x3,y3);
-                [inc,onc] = inpolygon(c,d,x4,y4);
-                in = ins_node | inp | inc;
-                on = ons | onp | onc;
-                if in == false && on == false 
+                in = insidepoly_halfplane(c,d);
+                if in == false 
                     Nodes(:,:,i) = NewNodeDL;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
+%                     drawnow
                     plot(c,d,'.','color','yellow') 
                     if NewNodeDL(1) == GoalNode(1) && NewNodeDL(2) == GoalNode(2)
                         break
@@ -217,15 +196,12 @@ if status
             if (any(all(bsxfun(@eq,Nodes,NewNodeDR)))) == false
                 c = NewNodeDR(1);
                 d = NewNodeDR(2);
-                [ins_node,ons] = inpolygon(c,d,x2,y2);
-                [inp,onp] = inpolygon(c,d,x3,y3);
-                [inc,onc] = inpolygon(c,d,x4,y4);
-                in = ins_node | inp | inc;
-                on = ons | onp | onc;
-                if in == false && on == false 
+                in = insidepoly_halfplane(c,d);
+                if in == false 
                     Nodes(:,:,i) = NewNodeDR;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
+%                     drawnow
                     plot(c,d,'.','color','yellow')
                     if NewNodeDR(1) == GoalNode(1) && NewNodeDR(2) == GoalNode(2)
                         break
@@ -239,15 +215,12 @@ if status
             if (any(all(bsxfun(@eq,Nodes,NewNodeUL)))) == false
                 c = NewNodeUL(1);
                 d = NewNodeUL(2);
-                [ins_node,ons] = inpolygon(c,d,x2,y2);
-                [inp,onp] = inpolygon(c,d,x3,y3);
-                [inc,onc] = inpolygon(c,d,x4,y4);
-                in = ins_node | inp | inc;
-                on = ons | onp | onc;
-                if in == false && on == false 
+                in = insidepoly_halfplane(c,d);
+                if in == false 
                     Nodes(:,:,i) = NewNodeUL;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
+%                     drawnow
                     plot(c,d,'.','color','yellow')
                     if NewNodeUL(1) == GoalNode(1) && NewNodeUL(2) == GoalNode(2)
                         break
@@ -261,15 +234,12 @@ if status
             if (any(all(bsxfun(@eq,Nodes,NewNodeUR)))) == false
                 c = NewNodeUR(1);
                 d = NewNodeUR(2);
-                [ins_node,ons] = inpolygon(c,d,x2,y2);
-                [inp,onp] = inpolygon(c,d,x3,y3);
-                [inc,onc] = inpolygon(c,d,x4,y4);
-                in = ins_node | inp | inc;
-                on = ons | onp | onc;
-                if in == false && on == false 
+                in = insidepoly_halfplane(c,d);
+                if in == false 
                     Nodes(:,:,i) = NewNodeUR;
                     NodesInfo(:,:,i) = [i,j];
                     i = i+1;
+%                     drawnow
                     plot(c,d,'.','color','yellow')
                     if NewNodeUR(1) == GoalNode(1) && NewNodeUR(2) == GoalNode(2)
                         break
@@ -279,19 +249,20 @@ if status
         end
         j = j+1
     end
+
+    k = i-1;
+    count = 0;
     
-    txt1 = '\leftarrow Start Node';
-    txt2 = '\leftarrow Goal Node';
+   txt1 = '\leftarrow Start Node';
+   txt2 = '\leftarrow Goal Node';
    
     
     plot(StartNode(1),StartNode(2),'s','color','green','markers',20)
     plot(GoalNode(1),GoalNode(2),'s','color','red','markers',20)
-   
+    
     text(StartNode(1),StartNode(2),txt1)
     text(GoalNode(1),GoalNode(2),txt2)
-
-    k = i-1;
-    count = 0;
+    
     while k ~= 1 
         NodesInfo(:,:,k);
         a = Nodes(1,1,k);
