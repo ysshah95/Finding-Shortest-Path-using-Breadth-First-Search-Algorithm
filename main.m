@@ -7,26 +7,17 @@ close all
 x1 = [0 250 250 0];
 y1 = [0 0 150 150];
 rec = polyshape(x1,y1);
-drawnow 
-plot(rec)
-fill(x1,y1,'w')
-hold on
+
 
 x2 = [55 55 105 105];
 y2 = [112.5 67.5 67.5 112.5];
 square = polyshape(x2,y2);
-drawnow
-plot(square)
-fill(x2,y2,'k')
-hold on 
+
 
 x3 = [120 158 165 188 168 145];
 y3 = [55 51 89 51 14 14];
 poly = polyshape(x3, y3);
-drawnow
-plot(poly)
-fill(x3,y3,'k')
-hold on 
+
 
 % Circle
 xc=180;
@@ -35,12 +26,7 @@ t = 0:0.01:2*pi;
 radius = 15;
 x4 = radius*cos(t)+ xc;
 y4 = radius*sin(t) + yc;
-drawnow
-plot(x4,y4)
-xlim([0 250])
-ylim([0 150])
-fill(x4,y4,'k');
-hold on 
+
 
 status = false;
 disp('')
@@ -252,6 +238,29 @@ if status
 
     k = i-1;
     count = 0;
+    
+    drawnow 
+    plot(rec)
+    fill(x1,y1,'w')
+    hold on
+    
+    drawnow
+    plot(square)
+    fill(x2,y2,'k')
+    hold on 
+    
+    drawnow
+    plot(poly)
+    fill(x3,y3,'k')
+    hold on 
+    
+    drawnow
+    plot(x4,y4)
+    xlim([0 250])
+    ylim([0 150])
+    fill(x4,y4,'k');
+    hold on 
+    
     
    txt1 = '\leftarrow Start Node';
    txt2 = '\leftarrow Goal Node';
