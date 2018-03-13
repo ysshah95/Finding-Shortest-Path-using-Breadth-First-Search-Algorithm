@@ -14,15 +14,18 @@ ys3 = 67.5;
 xs4 = 105;
 ys4 = 112.5;
 
-xs = c;
+% xs = c;
+% ys = d;
+% 
+% yss1 = ys1 + (((ys2-ys1)*(xs-xs1))/(xs2-xs1));
+% % xss1 = xs1 + (((xs2-xs1)/(ys2-ys1))*(ys-ys1));
+% yss2 = ys2 + (((ys3-ys2)*(xs-xs2))/(xs3-xs2));
+% % xss3 = xs4 + (((xs3-xs4)/(ys3-ys4))*(ys-ys4));
+% yss3 = ys3 + (((ys4-ys3)*(xs-xs3))/(xs4-xs3));
+% yss4 = ys1 + (((ys4-ys1)*(xs-xs1))/(xs4-xs1));
 
-yss1 = ys1 + ((ys2-ys1)*(xs-xs1))/(xs2-xs1);
-yss2 = ys2 + ((ys3-ys2)*(xs-xs2))/(xs3-xs2);
-yss3 = ys3 + ((ys4-ys3)*(xs-xs3))/(xs4-xs3);
-yss4 = ys1 + ((ys4-ys1)*(xs-xs1))/(xs4-xs1);
-
-
-if d<=yss1 && d>=yss2 && d>=yss3 && d<=yss4
+if ( c>=55 && c<=105 ) && (d<=112.5 && d>=67.5)
+% if d<=yss1 && d>=yss2 && d<=yss3 && d<=yss4
     ins = true;
 else
     ins = false;
@@ -80,8 +83,6 @@ end
 
 in = ins | inp | inc;
 
-
-
-
+end 
 
         
