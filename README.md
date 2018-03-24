@@ -22,6 +22,7 @@ Running The Program:
 10) I have also included a gif file visual.gif that shows the expansion of nodes visually. 
 
 ![visual](https://user-images.githubusercontent.com/31979840/37861977-1b753b18-2f1c-11e8-899f-e18e1a0cc5fe.gif)
+
 Fig: Planning Algorithm GIF
 
 ![extremes](https://user-images.githubusercontent.com/31979840/37861998-6872b62a-2f1c-11e8-9ab3-b704fa3fe2cd.jpg)
