@@ -21,6 +21,7 @@ Running The Program:
 9) I have also included a extremes.jpg (in the same folder)  file that shows the path for two extreme points ((0,0) and (250,150)).
 10) I have also included a gif file visual.gif that shows the expansion of nodes visually. 
 
+![visual](https://user-images.githubusercontent.com/31979840/37861977-1b753b18-2f1c-11e8-899f-e18e1a0cc5fe.gif)
 
 Contact: 
 For more details and help contact (ysshah95@umd.edu).
