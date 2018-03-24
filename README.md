@@ -23,10 +23,10 @@ Running The Program:
 
 ![visual](https://user-images.githubusercontent.com/31979840/37861977-1b753b18-2f1c-11e8-899f-e18e1a0cc5fe.gif)
 
-Fig: Planning Algorithm GIF
+                    Fig: Planning Algorithm GIF
 
 ![extremes](https://user-images.githubusercontent.com/31979840/37861998-6872b62a-2f1c-11e8-9ab3-b704fa3fe2cd.jpg)
-Fig: Extreme Points 
+                    Fig: Extreme Points 
 
 Contact: 
 For more details and help contact (ysshah95@umd.edu).
